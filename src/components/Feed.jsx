@@ -2,9 +2,18 @@ import { useState, useEffect } from "react";
 import { Box, Stack, Typography, Container } from "@mui/material";
 
 import Sidebar from "./Sidebar";
+import Videos from "./Videos";
+import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const Feed = () => {
+
   const[selectedCategory, setSelectedCategory] = useState('New');
+  const[videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
+      .then((data) => setVideos(data.items))
+  }, [selectedCategory]);
 
   function handleButtonClick(categoryName) {
     setSelectedCategory(categoryName)
@@ -30,11 +39,13 @@ const Feed = () => {
           </Box>
         </Stack>
 
-        <Box>
-          <Typography fontWeight='bold' variant="h4" color="white">
+        <Box display='flex' flexDirection='column'>
+          <Typography fontWeight='bold' variant="h4" color="white" gutterBottom>
             {selectedCategory} <span style={{ color: 'red' }}>Vidoes</span>
           </Typography>
+          <Videos videos={[videos]} />
         </Box>
+        
       </Box>
     </>
   );
