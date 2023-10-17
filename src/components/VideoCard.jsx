@@ -12,7 +12,13 @@ import {
 const VideoCard = ({ video }) => {
   return (
     <>
-      <Card sx={{ width: { xs: '100%', md: '350px' }, borderRadius: 0, boxShadow: 'none' }}>
+      <Card
+        sx={{
+          width: { xs: "100%", md: "350px" },
+          borderRadius: 0,
+          boxShadow: "none",
+        }}
+      >
         <Link
           to={video.id.videoId ? `/video/${video.id.videoId}` : demoVideoUrl}
         >
@@ -47,7 +53,7 @@ const VideoCard = ({ video }) => {
             </Typography>
           </Link>
         </CardContent>
-      </Card> 
+      </Card>
     </>
   );
 };
