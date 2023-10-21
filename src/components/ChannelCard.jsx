@@ -1,4 +1,7 @@
-import { Card, CardMedia, CardContent, Typography, Link } from "@mui/material";
+import { Card, CardMedia, CardContent, Typography } from "@mui/material";
+
+import { Link } from "react-router-dom";
+import { demoChannelUrl } from "../utils/constants";
 
 /* import {
   demoChannelTitle,
@@ -7,41 +10,57 @@ import { Card, CardMedia, CardContent, Typography, Link } from "@mui/material";
   demoThumbnailUrl,
 } from "../utils/constants"; */
 
-const ChannelCard = ({ channel }) => {
+const ChannelCard = ({ channel, marginTop, subscriberCount }) => {
+  if(!channel) {
+    return null;
+  }
   return (
     <>
       <Card
         sx={{
           boxSizing: "border-box",
-          width: { xs: "100%", md: "350px" },
+          width: { xs: "356px", md: "350px" },
+          height: "326px",
           boxShadow: "none",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "black",
+          margin: "auto",
+          backgroundColor: "transparent",
+          marginTop,
         }}
       >
-        <Link
-          to={/*  channel.id.channelId ?  */ `channel/${channel.id.channelId}`}
-        >
+        <Link to={`/channel/${channel.id.channelId}`}>
           <CardMedia
             image={channel.snippet.thumbnails.high.url}
             alt={channel.snippet.title}
-            sx={{ width: 280, height: 280, borderRadius: "50%" }}
+            sx={{ width: 200, height: 200, borderRadius: "50%" }}
           />
         </Link>
         <CardContent
           sx={{
             boxSizing: "border-box",
-            height: "30px",
             width: "100%",
             textAlign: "center",
           }}
         >
-          <Link to={`channel/${channel.id.channelId}`}>
-            <Typography variant="subtitle2" fontWeight="bold" color="#fff" sx={{ textDecoration: 'none', }}>
+          <Link to={`/channel/${channel.id.channelId}`}>
+            <Typography
+              variant="subtitle1"
+              fontWeight="bold"
+              color="#fff"
+              sx={{ textDecoration: "none" }}
+            >
               {channel.snippet.title.slice(0, 60)}
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              fontWeight="bold"
+              color="#fff"
+              sx={{ textDecoration: "none" }}
+            >
+              {subscriberCount}
             </Typography>
           </Link>
         </CardContent>
